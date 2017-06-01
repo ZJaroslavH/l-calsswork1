@@ -1,16 +1,32 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get("/room/{id}", function ($id){
+    $rooms=[
+        "1"=>[
+            "title"=> "Пещера",
+            "description"=> "Пещера. Холодною .Хочу домой",
+            "action"=> [
+                "пойти домой"=>"2",
+                "Пожрать"=>"3",
+                "спеть Марсельезу"=>"3",
+
+            ]
+        ],
+        "2"=>[
+
+        ],
+        "3"=>[
+
+        ],
+    ];
+    $room=$rooms[$id];
+    return view("quest",[
+        "room"=>$room
+    ]);
+
+})->name("room");
+
+Route::get("/", function (){
+    return redirect()->route("room",["id"=>1]);
 });
